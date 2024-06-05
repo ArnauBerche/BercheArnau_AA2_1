@@ -130,8 +130,10 @@
     <ClInclude Include="map.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="map.cpp" />
+    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="pokeball.cpp" />
     <ClCompile Include="pokemon.cpp" />
   </ItemGroup>

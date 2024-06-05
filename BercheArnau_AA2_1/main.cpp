@@ -2,93 +2,92 @@
 #include <iostream>
 #include <time.h>
 
+#define NUM_FPS 24
+
 int main() {
     srand(time(NULL));
 
-    char direccion = '^';
-    int pokemonAmountLvl1 = 0;
-    int pokemonAmountLvl2 = 0;
-    bool pokeballInMap = false;
-    int pokeballInMapPos[2] = {0,0};
-    bool lvl1Requirement = true;
-    bool done1 = false;
-    bool lvl2Requirement = true;
-    bool done2 = false;
-
-    Player jugador = { 1, 1,0,0 };
-
-    MapaConfiguracion mapas[4];
-    leerConfiguracion("config.txt", mapas, 4, jugador);
-    CellInfo** mapa = inicializarMapa(mapas[0].alto, mapas[0].ancho);
-
-
-
-    bool jugando = true;
-    while (jugando) {
+    int time = 0;
+    int GameState = 0;
+    bool gameOver = false;
+    int posInMenu = 0;
+    while (!gameOver)
+    {
+        time++;
         system("cls");
-        std::cout << "Pokemon Amount: " << jugador.capturedPokemons << "\t";
+        switch (GameState)
+        {
+        case 0:
+            std::cout << "  _____      _        ______       _   _ \n";
+            std::cout << " |  __ \\    | |      |  ____|     | | (_)\n";
+            std::cout << " | |__) |__ | | _____| |__   _ __ | |_ _ \n";
+            std::cout << " |  ___/ _ \\| |/ / _ \\  __| | '_ \\| __| |\n";
+            std::cout << " | |  | (_) |   <  __/ |____| | | | |_| |\n";
+            std::cout << " |_|   \\___/|_|\\_\\___|______|_| |_|\\__|_|\n";
+            std::cout << "                                         \n";
+            std::cout << "                                         \n";
+            
+            if (time % (3 * 6) == 0)
+            {
+                GameState = 1;
+            }
+            break;
+        case 1:
+            Menu(GameState, posInMenu, time);
 
-        std::cout << "Pokeball Amount: " << jugador.pokeballAmount << std::endl;
-        jugador.playerSector = DetectPlayerSector(mapa, mapas, jugador);
-        std::cout << "Player Sector: " << jugador.playerSector << std::endl;
-        std::cout << "PDMG: " << jugador.pikachuDMG << std::endl;
-        std::cout << "HP: " << mapas[0].saludS << std::endl;
-        std::cout << "LHP: " << mapas[0].saludL << std::endl;
-        std::cout << "TMIN: " << mapas[0].tTMMin << std::endl;
-        std::cout << "TMAX: " << mapas[0].tTMMax << std::endl;
+            break;
+        case 2:
+            std::cout << "Game" << std::endl;
+            Game(GameState, NUM_FPS, time);
+            break;
+        case 3:
+            std::cout << "   _____                       ____                 \n";
+            std::cout << "  / ____|                     / __ \\                \n";
+            std::cout << " | |  __  __ _ _ __ ___   ___| |  | |_   _____ _ __ \n";
+            std::cout << " | | |_ |/ _` | '_ ` _ \\ / _ \\ |  | \\ \\ / / _ \\ '__|\n";
+            std::cout << " | |__| | (_| | | | | | |  __/ |__| |\\ V /  __/ |   \n";
+            std::cout << "  \\_____|\\__,_|_| |_| |_|\\___|\\____/  \\_/ \\___|_|   \n";
+            std::cout << "                                                    \n";
+            std::cout << "                                                    \n";
+            std::cout << "                     YOU LOSE                       \n";
+            if (time % (5 * 6) == 0)
+            {
+                gameOver = true;
+            }
 
-        inicializarPokemons1(pokemonAmountLvl1, mapa, mapas);
-        inicializarPokemons2(pokemonAmountLvl2, mapa, mapas);
-        inicizlizarPokeballs(mapa, mapas, jugador, pokeballInMap, pokeballInMapPos);
-        PokeballColection(mapa, jugador, pokeballInMap);
-        if (GetAsyncKeyState(VK_UP)) {
-            if (mapa[jugador.x][jugador.y - 1].IsEmpty) {
-                jugador.y--;
-                direccion = '^';
+            break;
+        case 4:
+            std::cout << " __     ______  _    _  __          _______ _   _ \n";
+            std::cout << " \\ \\   / / __ \\| |  | | \\ \\        / /_   _| \\ | |\n";
+            std::cout << "  \\ \\_/ / |  | | |  | |  \\ \\  /\\  / /  | | |  \\| |\n";
+            std::cout << "   \\   /| |  | | |  | |   \\ \\/  \\/ /   | | | . ` |\n";
+            std::cout << "    | | | |__| | |__| |    \\  /\\  /   _| |_| |\\  |\n";
+            std::cout << "    |_|  \\____/ \\____/      \\/  \\/   |_____|_| \\_|\n";
+            std::cout << "                                                  \n";
+            std::cout << "                                                  \n";
+            if (time % (5 * 6) == 0)
+            {
+                gameOver = true;
             }
-        }
-        else if (GetAsyncKeyState(VK_DOWN)) {
-            if (mapa[jugador.x][jugador.y + 1].IsEmpty) {
-                jugador.y++;
-                direccion = 'v';
+            break;
+        case 5:
+            std::cout << "       _           _                   \n";
+            std::cout << "      | |         (_)                  \n";
+            std::cout << "   ___| | ___  ___ _ _ __   __ _       \n";
+            std::cout << "  / __| |/ _ \\/ __| | '_ \\ / _` |      \n";
+            std::cout << " | (__| | (_) \\__ \\ | | | | (_| |_ _ _ \n";
+            std::cout << "  \\___|_|\\___/|___/_|_| |_|\\__, (_|_|_)\n";
+            std::cout << "                            __/ |      \n";
+            std::cout << "                           |___/       \n";
+            if (time % (3 * 6) == 0)
+            {
+                gameOver = true;
             }
+        default:
+            break;
         }
-        else if (GetAsyncKeyState(VK_LEFT)) {
-            if (mapa[jugador.x - 1][jugador.y].IsEmpty) {
-                jugador.x--;
-                direccion = '<';
-            }
-        }
-        else if (GetAsyncKeyState(VK_RIGHT)) {
-            if (mapa[jugador.x + 1][jugador.y].IsEmpty) {
-                jugador.x++;
-                direccion = '>';
-            }
-        }
-        else if (GetAsyncKeyState(VK_SPACE)) {
-            PokemonDetection(mapa, mapas, jugador, direccion, pokemonAmountLvl1, pokemonAmountLvl2);
-        }
-
-        if (jugador.capturedPokemons >= mapas[0].pokemonsParaDesbloquear && !done1) {
-            for (int j = 1; j < mapas[0].ancho / 2; ++j) {
-                mapa[mapas[0].alto / 2][j].IsEmpty = true;
-                mapa[mapas[0].alto / 2][j].id = Content::EMPTY;
-            }
-            done1 = true;
-        }
-        if (jugador.capturedPokemons >= mapas[1].pokemonsParaDesbloquear && !done2) {
-            for (int i = mapas[0].alto / 2 + 1; i < mapas[0].alto - 1; ++i) {
-                mapa[i][mapas[0].ancho / 2].IsEmpty = true;
-                mapa[i][mapas[0].ancho / 2].id = Content::EMPTY;
-            }
-            done2 = true;
-        }
-        imprimirMapa(mapa, mapas[0].alto, mapas[0].ancho, jugador, direccion);
-
-        Sleep(100);
+        Sleep(1000 / NUM_FPS);
     }
-
-    liberarMapa(mapa, mapas[0].alto);
 
     return 0;
 }

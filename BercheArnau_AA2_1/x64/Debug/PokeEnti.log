@@ -1,7 +1,6 @@
 ﻿  main.cpp
-C:\Users\Aberche\Desktop\Grappling\BercheArnau_AA2_1\BercheArnau_AA2_1\main.cpp(6,15): warning C4244: 'argumento': conversión de 'time_t' a 'unsigned int'; posible pérdida de datos
+C:\Users\Aberche\Desktop\Grappling\BercheArnau_AA2_1\BercheArnau_AA2_1\main.cpp(8,15): warning C4244: 'argumento': conversión de 'time_t' a 'unsigned int'; posible pérdida de datos
   map.cpp
-  pokeball.cpp
   pokemon.cpp
   Generando código...
 C:\Users\Aberche\Desktop\Grappling\BercheArnau_AA2_1\BercheArnau_AA2_1\map.cpp(34): warning C4715: 'CellInfo::ContentToChar': no todas las rutas de acceso de control devuelven un valor
