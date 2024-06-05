@@ -1,5 +1,4 @@
 #pragma once
-
 #include <fstream>
 #include <Windows.h>
 
@@ -15,6 +14,7 @@ struct Player {
     int pokeballAmount;
     int capturedPokemons;
     int pikachuDMG;
+    std::string selectorToName(int playerSector);
 };
 
 struct MapaConfiguracion {

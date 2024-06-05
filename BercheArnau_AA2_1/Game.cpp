@@ -35,7 +35,7 @@ void Game(int& GameState, int num_FPS, int& timer)
 
         std::cout << "Pokeball Amount: " << jugador.pokeballAmount << std::endl;
         jugador.playerSector = DetectPlayerSector(mapa, mapas, jugador);
-        std::cout << "\t" << "Player Sector: " << jugador.playerSector << std::endl;
+        std::cout << "\t      "  << jugador.selectorToName(jugador.playerSector) << std::endl;
 
         imprimirMapa(mapa, mapas[0].alto, mapas[0].ancho, jugador, direccion);
         int randomTime = rand() % 2;

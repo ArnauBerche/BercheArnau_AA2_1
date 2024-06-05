@@ -4,6 +4,32 @@
 #include <sstream>
 #include <string>
 
+std::string Player::selectorToName(int playerSector)
+{
+
+    switch (playerSector)
+    {
+    case 0:
+        return "-Pueblo--Paleta-";
+        break;
+    case 1:
+        return "-----Bosque-----";
+        break;
+    case 2:
+        return "-Cueva--Celeste-";
+        break;
+    case 3:
+        return "--Liga PokENTI--";
+        break;
+    case 5:
+        return "----------------";
+        break;
+    default:
+        break;
+    }
+
+}
+
 char CellInfo::ContentToChar(Content id)
 {
     switch (id)
