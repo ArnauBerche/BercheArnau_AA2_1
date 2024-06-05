@@ -1,14 +1,20 @@
-#ifndef MAP_H
-#define MAP_H
+#pragma once
 
 #include <fstream>
 #include <Windows.h>
 
-using namespace std;
+enum class Content {POKEMON, POKEBALL, ROCK, EMPTY};
 
-struct Position {
+enum class Type { NORMAL, LEGENDARY };
+enum class MovementType { HORIZONTAL, VERTICAL, DIAGONAL1, DIAGONAL2 };
+
+struct Player {
     int x;
     int y;
+    int playerSector;
+    int pokeballAmount;
+    int capturedPokemons;
+    int pikachuDMG;
 };
 
 struct MapaConfiguracion {
@@ -16,11 +22,42 @@ struct MapaConfiguracion {
     int alto;
     int pokemonsIniciales;
     int pokemonsParaDesbloquear;
+    int saludS;
+    int saludL;
+    int tTMMin;
+    int tTMMax;
 };
 
-void leerConfiguracion(const string& filename, MapaConfiguracion mapas[], int numMapas);
-char** inicializarMapa(int filas, int columnas);
-void liberarMapa(char** mapa, int filas);
-void imprimirMapa(char** mapa, int filas, int columnas, Position jugador, char direccion);
+struct Pokemon
+{
+    Type type;
+    MovementType mov;
+    std::string name;
+    int HP;
+    void initializePokemonStats(Type settype, MapaConfiguracion mapa[]);
+    void Move(MovementType move);
+};
 
-#endif
+
+struct CellInfo {
+    int PosX;
+    int PosY;
+    bool IsEmpty;
+    Content id;
+    Pokemon pokInCell;
+
+    char ContentToChar(Content id);
+};
+
+void leerConfiguracion(const std::string& filename, MapaConfiguracion mapas[], int numMapas, Player& jugador);
+CellInfo** inicializarMapa(int filas, int columnas);
+void liberarMapa(CellInfo** mapa, int filas);
+void imprimirMapa(CellInfo** mapa, int filas, int columnas, Player jugador, char direccion);
+
+
+int DetectPlayerSector(CellInfo** mapa, MapaConfiguracion mapas[], Player& player);
+void inicializarPokemons1(int& amountOfPokemonsInMap, CellInfo** mapa, MapaConfiguracion mapas[]);
+void inicializarPokemons2(int& amountOfPokemonsInMap, CellInfo** mapa, MapaConfiguracion mapas[]);
+void inicizlizarPokeballs(CellInfo**& mapa, MapaConfiguracion mapas[], Player& jugador, bool& pokeballInMap, int pos[]);
+void PokemonDetection(CellInfo**& mapa, MapaConfiguracion mapas[], Player& jugador, char& direccion, int& pokemonAmountLvl1, int& pokemonAmountLvl2);
+void PokeballColection(CellInfo**& mapa, Player& jugador, bool& pokeballInMap);

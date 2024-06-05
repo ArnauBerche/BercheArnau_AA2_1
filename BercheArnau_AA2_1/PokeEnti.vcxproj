@@ -128,11 +128,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="map.h" />
-    <ClInclude Include="pokemon.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="map.cpp" />
+    <ClCompile Include="pokeball.cpp" />
     <ClCompile Include="pokemon.cpp" />
   </ItemGroup>
   <ItemGroup>
